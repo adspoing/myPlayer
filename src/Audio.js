@@ -6,7 +6,6 @@ class Audio extends React.Component {
         this.displayName = 'Audio';
     }
     render() {
-    	console.log(this.props);
         return (
            <audio controls="controls" src={this.props.data.songUrl}/>
         );
