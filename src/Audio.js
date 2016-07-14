@@ -7,7 +7,7 @@ class Audio extends React.Component {
     }
     render() {
         return (
-           <audio controls="controls" src={this.props.data.songUrl}/>
+               <audio src={this.props.data.songUrl}/>
         );
     }
 }

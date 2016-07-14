@@ -4,10 +4,11 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Header from './Header.js'
-import Audio from './Audio.js'
-import PlayerButton from './PlayerButton.js'
-import Footer from './Footer.js'
+import Header from './Header.js';
+import Audio from './Audio.js';
+import PlayerButton from './PlayerButton.js';
+import Footer from './Footer.js';
+import Record from './record.js'
 import {playmusic, prevsong, nextsong, playmodule, randomplay} from './actions'
 
 class Player extends React.Component {
@@ -79,6 +80,8 @@ class Player extends React.Component {
                 <Header prevSong={this._clickPrevSongButton}
                         nextSong={this._clickNextSongButton}/>
         		<Audio ref="audio" data={this.props.data[this.props.index]}/>
+                <Record data={this.props.data[this.props.index]}
+                        playFlag={this.props.playFlag}/>
         		<PlayerButton clickPlayerButton={this._clickPlayerButton}
         					  playFlag={this.props.playFlag}/>
         		<Footer changePlayModule={this._changePlayModule}
