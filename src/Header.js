@@ -5,10 +5,18 @@ class Header extends React.Component {
         super(props);
         this.displayName = 'Header';
     }
+    prevSong = () => {
+        this.props.prevSong();
+    }
+    nextSong = () => {
+        this.props.nextSong();
+    }
     render() {
         return (
-        	<span onClick = {this.playButton} className={buttonName}></span>
-        	<span onClick = {this.playButton} className={buttonName}></span>
+            <div>
+            	<span onClick = {this.prevSong} className='prevSong'></span>
+                <span onClick = {this.nextSong} className='nextSong'></span>
+            </div>
         )
     }
 }
