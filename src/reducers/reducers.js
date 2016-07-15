@@ -1,6 +1,6 @@
 import {handleActions} from 'redux-actions';
-import {PLAY_MUSIC, PREV_SONG, NEXT_SONG, PLAY_MODULE, RANDOM_PLAY} from './constants';
-import Data from './data.js'
+import {PLAY_MUSIC, PREV_SONG, NEXT_SONG, PLAY_MODULE, RANDOM_PLAY} from '../actions/constants.js';
+import Data from '../data.js'
 
 
 export default handleActions({

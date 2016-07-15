@@ -1,4 +1,4 @@
-require('./index.less');
+require('../index.less');
 
 import React from 'react';
 import ReactDom from 'react-dom';
@@ -9,7 +9,8 @@ import Audio from './Audio.js';
 import PlayerButton from './PlayerButton.js';
 import Footer from './Footer.js';
 import Record from './record.js'
-import {playmusic, prevsong, nextsong, playmodule, randomplay} from './actions'
+import Timeline from './Timeline.js'
+import {playmusic, prevsong, nextsong, playmodule, randomplay} from '../actions/actions.js'
 
 class Player extends React.Component {
     constructor(props) {
@@ -71,8 +72,20 @@ class Player extends React.Component {
     	let audio = ReactDom.findDOMNode(this.refs.audio);
     	let that = this;
     	audio.onended = function(){
-    			that._clickNextSongButton();
+    		that._clickNextSongButton();
+            console.log("haha");
     	}
+        audio.ontimeupdate = function(){
+            if(!isNaN(audio.duration)){
+                let currentTime = audio.currentTime;
+                let currentMin = parseInt(currentTime/60);
+                let currentSec = parseInt(currentTime%60);
+                let timeline = ReactDom.findDOMNode(that.refs.timeline);
+                timeline.style.width = currentTime * 100 / audio.duration + 'px';
+                timeline.style.height = '20px';
+                timeline.style.background = 'red';
+            }
+        }
     }
     render() {
         return (
@@ -84,6 +97,7 @@ class Player extends React.Component {
                         playFlag={this.props.playFlag}/>
         		<PlayerButton clickPlayerButton={this._clickPlayerButton}
         					  playFlag={this.props.playFlag}/>
+                <Timeline ref="timeline" changeTime={this._changeTime}/>
         		<Footer changePlayModule={this._changePlayModule}
         				playModule={this.props.playModule}/>
         	</div>
