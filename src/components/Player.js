@@ -68,8 +68,14 @@ class Player extends React.Component {
 	    	}
     	},0);
     }
+    _changeTime = (e) =>{
+        let length = e.pageX;
+        console.log(length);
+    }
     componentDidMount = () =>{
     	let audio = ReactDom.findDOMNode(this.refs.audio);
+        let timeline = ReactDom.findDOMNode(this.refs.timeline);
+        timeline.style.height = '20px';
     	let that = this;
     	audio.onended = function(){
     		that._clickNextSongButton();
@@ -80,9 +86,7 @@ class Player extends React.Component {
                 let currentTime = audio.currentTime;
                 let currentMin = parseInt(currentTime/60);
                 let currentSec = parseInt(currentTime%60);
-                let timeline = ReactDom.findDOMNode(that.refs.timeline);
                 timeline.style.width = currentTime * 100 / audio.duration + 'px';
-                timeline.style.height = '20px';
                 timeline.style.background = 'red';
             }
         }
@@ -98,7 +102,7 @@ class Player extends React.Component {
         		<PlayerButton clickPlayerButton={this._clickPlayerButton}
         					  playFlag={this.props.playFlag}/>
                 <Timeline ref="timeline" changeTime={this._changeTime}/>
-        		<Footer changePlayModule={this._changePlayModule}
+                <Footer changePlayModule={this._changePlayModule}
         				playModule={this.props.playModule}/>
         	</div>
         )

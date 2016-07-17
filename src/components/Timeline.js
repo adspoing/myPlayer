@@ -5,11 +5,14 @@ class Timeline extends React.Component {
         super(props);
         this.displayName = 'Timeline';
     }
-    changeTime = ()=>{
-    	this.props.changeTime();
+    changeTime = (e)=>{
+    	this.props.changeTime(e);
     }
     render() {
-        return <div onClick = {this.changeTime}></div>;
+        return 
+            (
+                  <div onClick = {this.changeTime}></div>
+            )          
     }
 }
 
