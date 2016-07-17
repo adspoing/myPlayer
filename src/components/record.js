@@ -8,7 +8,9 @@ class Record extends React.Component {
     render() {
     	let RecordType = this.props.playFlag == true ? 'rotate' : 'record';
         return (
-        	<img className = {RecordType} src={this.props.data.image}/>
+        	<div className = 'RecordWrapper'>
+                <img className = {RecordType} src={this.props.data.image}/>
+            </div>
         )
     }
 }

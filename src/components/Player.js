@@ -8,8 +8,8 @@ import Header from './Header.js';
 import Audio from './Audio.js';
 import PlayerButton from './PlayerButton.js';
 import Footer from './Footer.js';
-import Record from './record.js'
-import Timeline from './Timeline.js'
+import Record from './record.js';
+import List from './List.js';
 import {playmusic, prevsong, nextsong, playmodule, randomplay} from '../actions/actions.js'
 
 class Player extends React.Component {
@@ -32,10 +32,18 @@ class Player extends React.Component {
     _clickPrevSongButton = () =>{
     	this.props.actions.prevsong();
     	this._LoadMusic();
+        let that = this;
+        setTimeout(function(){
+            that._changeBackground()
+        },0);
     }
     _clickNextSongButton = () =>{
     	this.props.actions.nextsong();
     	this._LoadMusic();
+        let that = this;
+        setTimeout(function(){
+            that._changeBackground()
+        },0);    
     }
     _LoadMusic = () =>{
     	let audio = ReactDom.findDOMNode(this.refs.audio);
@@ -70,7 +78,15 @@ class Player extends React.Component {
     }
     _changeTime = (e) =>{
         let length = e.pageX;
-        console.log(length);
+        let processbar = ReactDom.findDOMNode(this.refs.processbar);
+        let offset = processbar.offsetLeft;
+        console.log(length-offset); 
+    }
+    _changeBackground = () =>{
+        let background = ReactDom.findDOMNode(this.refs.myplayer);
+        let image = this.props.data[this.props.index].image;
+        console.log(image);
+        background.style.background='url(../imgs/'+image+') 0 0 no-repeat';
     }
     componentDidMount = () =>{
     	let audio = ReactDom.findDOMNode(this.refs.audio);
@@ -79,8 +95,8 @@ class Player extends React.Component {
     	let that = this;
     	audio.onended = function(){
     		that._clickNextSongButton();
-            console.log("haha");
     	}
+        audio.style.width = 0;
         audio.ontimeupdate = function(){
             if(!isNaN(audio.duration)){
                 let currentTime = audio.currentTime;
@@ -90,10 +106,12 @@ class Player extends React.Component {
                 timeline.style.background = 'red';
             }
         }
+        this._changeBackground();
     }
     render() {
         return (
-        	<div>
+        	<div className = 'myplayer' ref='myplayer'>
+                <div className = 'glass'></div>
                 <Header prevSong={this._clickPrevSongButton}
                         nextSong={this._clickNextSongButton}/>
         		<Audio ref="audio" data={this.props.data[this.props.index]}/>
@@ -101,9 +119,12 @@ class Player extends React.Component {
                         playFlag={this.props.playFlag}/>
         		<PlayerButton clickPlayerButton={this._clickPlayerButton}
         					  playFlag={this.props.playFlag}/>
-                <Timeline ref="timeline" changeTime={this._changeTime}/>
-                <Footer changePlayModule={this._changePlayModule}
-        				playModule={this.props.playModule}/>
+                 <Footer changePlayModule={this._changePlayModule}
+                        playModule={this.props.playModule}/>
+                <List />
+                <div ref = 'processbar' className = 'processBar' onClick = {this._changeTime}>
+                    <div ref = 'timeline'></div>        
+                </div>
         	</div>
         )
     }

@@ -13,7 +13,7 @@ class Header extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className = 'headerWrapper'>
             	<span onClick = {this.prevSong} className='prevSong'></span>
                 <span onClick = {this.nextSong} className='nextSong'></span>
             </div>

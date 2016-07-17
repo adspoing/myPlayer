@@ -12,7 +12,7 @@ class PlayerButton extends React.Component {
     	var buttonName = 'iconPause';
     	buttonName = this.props.playFlag == true? 'iconPause':'iconPlay';
         return (
-        	<div>
+        	<div className = 'ButtonWrapper'>
         		<span onClick = {this.playButton} className={buttonName}></span>
         	</div>
         )
