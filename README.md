@@ -1,5 +1,5 @@
-# react_starter
-my usual react starter
+# myPlayer
+Player Using React+Redux
 
 ## usage (for dev)
 
